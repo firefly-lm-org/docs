@@ -1,8 +1,14 @@
-# 赞助萤火虫大模型
+# 萤火虫大模型捐赠与赞助入口
 
-# 爱发电（国内）
+# GitHub Sponsors（海外用户，待开通地区后填写）
+github: []
+
+# 爱发电（国内个人赞助）
 custom:
   - https://afdian.com/a/firefly-lm
 
-# GitHub Sponsors（海外，地区开放后启用）
-# github: []
+# 其他捐赠方式（v1.0 后逐步开通）
+# open_collective: []
+# ko_fi: []
+# patreon: []
+# buy_me_a_coffee: []
