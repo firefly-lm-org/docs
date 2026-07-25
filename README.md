@@ -1,5 +1,7 @@
 # Firefly Docs
 
+[![Website](https://img.shields.io/badge/%E5%AE%98%E7%BD%91-firefly--lm.com-ff7a18?style=flat-square&logo=firefox)](https://firefly-lm.com) &nbsp; **🔥 官网: https://firefly-lm.com**
+
 > Firefly LM（萤火虫大模型）官方文档仓库
 >
 > 官网：https://firefly-lm.com
