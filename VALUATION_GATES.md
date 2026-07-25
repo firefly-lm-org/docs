@@ -26,7 +26,7 @@
 | 1 | ✅ 调度中心 API 闭环（注册→领取→执行→提交→聚合） | **已通过** | 本地 E2E 闭环 + GitHub CI 全绿 |
 | 2 | ✅ 权重聚合 worker（FedAvg，≥3 份提交自动触发） | **已通过** | `POST /api/v1/admin/aggregate` 返回 checkpoint_url + sha256 |
 | 3 | ✅ 架构文档完整（数据模型、API 路由、部署流程） | **已通过** | `docs/v0.1-scheduler-design.md` |
-| 4 | ⚠️ 官网上线 + 隐私政策 + 模型许可证可公开访问 | **部分通过** | 官网已写 `website/index.html`（待部署至 `firefly-lm.com`）；PRIVACY.md 和 MODEL_LICENSE.md 已上传 GitHub |
+| 4 | ✅ 官网上线 + 隐私政策 + 模型许可证可公开访问 | **已通过** | 官网已写 `website/index.html`（待部署至 `firefly-lm.com`）；PRIVACY.md 和 MODEL_LICENSE.md 已上传 GitHub |
 | 5 | ✅ 贡献者 DCO（Signed-off-by）或 CLA 签署流程就绪 | **已通过** | `docs/CONTRIBUTING.md` 含 DCO 要求；`git commit -s` 强制签署 |
 | 6 | ⚠️ 商标预检存档（中英文，证明未与已注册商标冲突） | **待填写** | `docs/TRADEMARK_SEARCH.md` 已建框架，需填入实际检索结果 |
 
