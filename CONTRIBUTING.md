@@ -8,7 +8,7 @@
 
 ### 🐛 报告问题
 - 前往 [GitHub Issues](https://github.com/firefly-lm-org/firefly-scheduler/issues) 报告 Bug
-- 安全漏洞请发邮件至 **security@firefly-lm.org**，勿在公开渠道披露
+- 安全漏洞请发邮件至 **security@firefly-lm.com**，勿在公开渠道披露
 
 ### 💡 提出功能建议
 - 前往 [GitHub Discussions](https://github.com/firefly-lm-org/scheduler/discussions) 发起讨论
