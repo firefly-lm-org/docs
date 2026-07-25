@@ -9,7 +9,7 @@
 
 ---
 
-**如果萤火虫帮你省了微调电费，可以在 [爱发电](https://afdian.com/a/firefly-lm) 请维护者喝杯节点咖啡。**
+**如果萤火虫帮你省了微调电费，可以在 [爱发电](https://afdian.net/a/firefly-lm) 请维护者喝杯节点咖啡。**
 
 ---
 
@@ -40,7 +40,7 @@
 ## 快速链接
 
 - 官网：https://firefly-lm.com
-- 爱发电赞助：https://afdian.com/a/firefly-lm
+- 爱发电赞助：https://afdian.net/a/firefly-lm
 - 安全披露：[GitHub Security Advisories](https://github.com/firefly-lm-org/scheduler/security/advisories/new)
 
 ---
