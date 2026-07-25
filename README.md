@@ -1,12 +1,7 @@
-# Firefly Docs
+# Firefly LM Docs
 
-[![Website](https://img.shields.io/badge/%E5%AE%98%E7%BD%91-firefly--lm.com-ff7a18?style=flat-square&logo=firefox)](https://firefly-lm.com) &nbsp; **🔥 官网: https://firefly-lm.com**
-
-> Firefly LM（萤火虫大模型）官方文档仓库
->
-> 官网：https://firefly-lm.com
-> GitHub：https://github.com/firefly-lm-org
-
+🌐 官网：https://firefly-lm.com
+💰 赞助：https://afdian.net/a/firefly-lm
 ---
 
 **如果萤火虫帮你省了微调电费，可以在 [爱发电](https://afdian.net/a/firefly-lm) 请维护者喝杯节点咖啡。**
