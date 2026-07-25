@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>萤火虫大模型 — Firefly LM</title>
+  <meta name="description" content="全球分布式志愿算力驱动的开源持续微调与对齐平台。基于 Qwen3 / Llama3 等强底座，汇聚志愿算力，共同训练对齐全球最强的开源大模型。" />
+  <meta property="og:title" content="萤火虫大模型 — Firefly LM" />
+  <meta property="og:description" content="让每一片 GPU 都能参与训练全球最强的开源大模型。" />
+  <meta property="og:url" content="https://firefly-lm.com" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://firefly-lm.com" />
+
+  <!-- Privacy + License links in footer -->
+  <link rel="privacy" href="https://github.com/firefly-lm-org/docs/blob/main/PRIVACY.md" />
+  <link rel="license" href="https://github.com/firefly-lm-org/docs/blob/main/MODEL_LICENSE.md" />
+
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --surface: #161619;
+      --border: #2a2a30;
+      --text: #e8e4df;
+      --muted: #7a7a85;
+      --accent: #f5c542;
+      --accent2: #ff8c42;
+      --green: #52c97a;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,13,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    nav .container { display: flex; align-items: center; gap: 32px; }
+    .nav-logo { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
+    .nav-logo span { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 24px; }
+    nav ul a { color: var(--muted); font-size: 14px; transition: color .2s; }
+    nav ul a:hover { color: var(--text); text-decoration: none; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 100px 0 80px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(245,197,66,.35);
+      padding: 4px 14px; border-radius: 999px;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 60px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .hero h1 .glow { color: var(--accent); text-shadow: 0 0 40px rgba(245,197,66,.4); }
+    .hero .tagline-en {
+      font-size: 18px; color: var(--muted);
+      margin-bottom: 20px; letter-spacing: 0.5px;
+    }
+    .hero .lead {
+      font-size: 17px; color: #b0aca8; max-width: 580px;
+      margin: 0 auto 44px; line-height: 1.8;
+    }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 26px; border-radius: 8px;
+      font-size: 15px; font-weight: 600;
+      transition: all .2s; cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent); color: #0d0d0f;
+    }
+    .btn-primary:hover { background: #ffd04e; transform: translateY(-1px); text-decoration: none; }
+    .btn-secondary {
+      background: var(--surface); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--accent); text-decoration: none; }
+
+    /* ── Stats bar ── */
+    .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      margin-bottom: 80px;
+    }
+    .stat { padding: 28px 20px; text-align: center; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat .num { font-size: 32px; font-weight: 800; color: var(--accent); letter-spacing: -1px; }
+    .stat .label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+    /* ── Sections ── */
+    section { padding: 72px 0; }
+    section h2 {
+      font-size: 26px; font-weight: 700; letter-spacing: -0.8px;
+      margin-bottom: 8px;
+    }
+    .section-en { font-size: 13px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 32px; }
+
+    .card-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px;
+    }
+    .card .icon { font-size: 28px; margin-bottom: 16px; }
+    .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* ── How it works ── */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: grid; grid-template-columns: 48px 1fr; gap: 24px;
+      padding: 32px 0; border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700; color: var(--accent);
+      flex-shrink: 0;
+    }
+    .step h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .step p { font-size: 14px; color: var(--muted); }
+
+    /* ── License band ── */
+    .license-band {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 32px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+      margin: 72px 0;
+    }
+    .lic h4 { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+    .lic p { font-size: 14px; color: var(--muted); }
+    .lic .badge {
+      display: inline-block; font-size: 12px; font-weight: 600;
+      background: rgba(245,197,66,.15); color: var(--accent);
+      padding: 3px 10px; border-radius: 4px; margin-top: 10px;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      text-align: center; padding: 80px 0;
+      background: linear-gradient(135deg, #161619 0%, #1a1a1f 100%);
+      border-top: 1px solid var(--border);
+    }
+    .cta h2 { font-size: 30px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
+    .cta p { font-size: 16px; color: var(--muted); margin-bottom: 36px; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 0;
+      font-size: 13px; color: var(--muted);
+    }
+    footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    footer ul { list-style: none; display: flex; gap: 24px; }
+    footer ul a { color: var(--muted); }
+    footer ul a:hover { color: var(--text); }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      nav ul { display: none; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stat:nth-child(2) { border-right: none; }
+      .card-grid { grid-template-columns: 1fr; }
+      .license-band { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="container">
+    <a href="#" class="nav-logo">Firefly<span>LM</span></a>
+    <ul>
+      <li><a href="#what">是什么</a></li>
+      <li><a href="#how">怎么做</a></li>
+      <li><a href="#join">参与</a></li>
+      <li><a href="https://github.com/firefly-lm-org/scheduler" target="_blank">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">开源 · 志愿算力 · 持续微调</div>
+    <h1>让每一片 GPU<br/><span class="glow">都能训练大模型</span></h1>
+    <p class="tagline-en">Volunteer-Driven Distributed Fine-Tuning Platform</p>
+    <p class="lead">
+      萤火虫大模型是全球分布式志愿算力驱动的开源持续微调与对齐平台。<br/>
+      基于 Qwen3 / Llama3 等强底座，汇聚志愿算力，共同训练对齐全球最强的开源大模型。
+    </p>
+    <div class="hero-btns">
+      <a href="https://github.com/firefly-lm-org/firefly-client/releases" class="btn btn-primary">
+        ⬇ 下载客户端
+      </a>
+      <a href="https://github.com/firefly-lm-org/docs/blob/main/ROADMAP.md" class="btn btn-secondary">
+        阅读路线图 →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="container">
+  <div class="stats">
+    <div class="stat"><div class="num">v0.1</div><div class="label">当前版本</div></div>
+    <div class="stat"><div class="num">2</div><div class="label">GitHub 仓库</div></div>
+    <div class="stat"><div class="num">0</div><div class="label">活跃节点</div></div>
+    <div class="stat"><div class="num">Apache 2.0</div><div class="label">代码许可证</div></div>
+  </div>
+</div>
+
+<!-- What -->
+<section id="what">
+  <div class="container">
+    <p class="section-en">What is Firefly LM</p>
+    <h2>不是训练基础模型，是微调和对齐它</h2>
+    <p style="color:var(--muted); max-width:580px; margin-bottom:40px; font-size:15px;">
+      从零训练一个 7B 模型需要数千张 H100、数千万费用——这不是开源社区能做的事。<br/>
+      萤火虫选择另一条路：基于已有的最强开源底座（Qwen3、Llama3.1），通过联邦学习持续微调和对齐，让每一次志愿贡献都能积累、都能被验证。
+    </p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="icon">🔥</div>
+        <h3>联邦学习聚合</h3>
+        <p>你的 LoRA 权重片段不离开你的机器。Firefly 调度中心聚合后产生更强的全局模型——贡献可验证，结果公开。</p>
+      </div>
+      <div class="card">
+        <div class="icon">💰</div>
+        <h3>零门槛参与</h3>
+        <p>有 GPU 就能参与。支持 NVIDIA / AMD / Apple Silicon。最小 6GB 显存即可领取轻量任务。客户端全自动。</p>
+      </div>
+      <div class="card">
+        <div class="icon">📊</div>
+        <h3>贡献值可追溯</h3>
+        <p>每一次领取、提交、聚合都有链上（或等效）记录。贡献值公开可查，永久存档在 GitHub。</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔒</div>
+        <h3>OpenRAIL-M 许可</h3>
+        <p>聚合 LoRA 权重采用 OpenRAIL-M 许可证：可商用、禁止武器化、禁止未经同意的监控。</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌍</div>
+        <h3>无中央控制</h3>
+        <p>底座模型权重不归属于任何单一实体。最终移交开放原子基金会（v1.0 后申请加入）。</p>
+      </div>
+      <div class="card">
+        <div class="icon">🤝</div>
+        <h3>爱发电支持</h3>
+        <p>项目通过爱发电（国内）和 GitHub Sponsors（海外）接受捐赠，所有收支月度公开。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How -->
+<section id="how">
+  <div class="container">
+    <p class="section-en">How It Works</p>
+    <h2>参与只需 4 步</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>下载客户端</h3>
+          <p>从 GitHub Releases 下载 firefly-client，一行命令安装。支持 Windows / macOS / Linux。最小显存要求 6GB。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>注册节点，领取任务</h3>
+          <p>运行 <code>firefly-cli node register</code> 注册算力节点。系统自动分配当前等待中的训练任务，下载对应的微调数据片段。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>本地训练，上传权重</h3>
+          <p>客户端自动启动 LoRA 微调（QLoRA，4-bit 量化）。完成后自动打包、上传。你随时可以 <code>firefly-cli status</code> 查看进度。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>贡献值到账，等待聚合</h3>
+          <p>提交成功后，贡献值立即入账。当同一批次累积 ≥ 3 份提交，Firefly 自动触发 FedAvg 聚合，生成更强的全局检查点。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- License -->
+<div class="container">
+  <div class="license-band">
+    <div class="lic">
+      <h4>调度中心代码</h4>
+      <p>FastAPI + PostgreSQL + Redis，完整开源。<br/>可商用，可修改，无专利陷阱。</p>
+      <div class="badge">Apache 2.0</div>
+    </div>
+    <div class="lic">
+      <h4>聚合 LoRA 权重</h4>
+      <p>禁止军事用途、禁止未经同意的监控、禁止高风险自动决策。<br/>详见 MODEL_LICENSE.md。</p>
+      <div class="badge">OpenRAIL-M</div>
+    </div>
+  </div>
+</div>
+
+<!-- Join -->
+<section id="join">
+  <div class="container">
+    <p class="section-en">Join Us</p>
+    <h2>成为萤火虫的一部分</h2>
+    <div class="card-grid" style="margin-top:32px;">
+      <div class="card">
+        <div class="icon">🐛</div>
+        <h3>报告问题</h3>
+        <p>前往 GitHub Issues 报告 Bug 或提出功能建议。安全漏洞请用 GitHub Security Advisories 私有披露。</p>
+        <br/>
+        <a href="https://github.com/firefly-lm-org/scheduler/issues" target="_blank">GitHub Issues →</a>
+      </div>
+      <div class="card">
+        <div class="icon">📝</div>
+        <h3>贡献代码</h3>
+        <p>阅读 CONTRIBUTING.md，用 <code>git commit -s</code> 签署 DCO。所有 PR 需经 Core 审查。</p>
+        <br/>
+        <a href="https://github.com/firefly-lm-org/docs/blob/main/CONTRIBUTING.md" target="_blank">贡献指南 →</a>
+      </div>
+      <div class="card">
+        <div class="icon">💬</div>
+        <h3>参与讨论</h3>
+        <p>在 GitHub Discussions 提出技术路线建议，或加入技术路线投票。ADR 公开透明。</p>
+        <br/>
+        <a href="https://github.com/firefly-lm-org/scheduler/discussions" target="_blank">Discussions →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <div class="container">
+    <h2>有 GPU，就来发光</h2>
+    <p>哪怕只是一张 RTX 3060，也能参与训练全球最强的开源大模型</p>
+    <a href="https://github.com/firefly-lm-org/firefly-client/releases" class="btn btn-primary">
+      ⬇ 立即下载客户端
+    </a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <span>© 2026 Firefly LM · firefly-lm.com · Apache 2.0 + OpenRAIL-M</span>
+    <ul>
+      <li><a href="https://github.com/firefly-lm-org/docs/blob/main/PRIVACY.md" target="_blank">隐私政策</a></li>
+      <li><a href="https://github.com/firefly-lm-org/docs/blob/main/SECURITY.md" target="_blank">安全</a></li>
+      <li><a href="https://github.com/firefly-lm-org/docs/blob/main/GOVERNANCE.md" target="_blank">治理</a></li>
+      <li><a href="https://github.com/firefly-lm-org/docs/blob/main/FINANCE.md" target="_blank">财务公示</a></li>
+      <li><a href="https://github.com/firefly-lm-org/docs/blob/main/MODEL_LICENSE.md" target="_blank">许可证</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
