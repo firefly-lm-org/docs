@@ -8,10 +8,10 @@
 请通过以下渠道报告，我们会在 **48 小时内确认**：
 
 - [GitHub Security Advisories](https://github.com/firefly-lm-org/scheduler/security/advisories/new) （首选，私有披露）
-- 或邮件：security@firefly-lm.org（域名部署后生效）
+- 或邮件：security@firefly-lm.com（域名部署后生效）
 
 **正式阶段（v1.0+）**：  
-security@firefly-lm.org（需配合 DNS MX 记录确保可收信）
+security@firefly-lm.com（需配合 DNS MX 记录确保可收信）
 
 ## 响应 SLA
 
@@ -24,5 +24,5 @@ security@firefly-lm.org（需配合 DNS MX 记录确保可收信）
 
 ## 已知限制
 
-v0.1-v0.5 阶段，安全邮箱路由（security@firefly-lm.org）尚未完成域名配置。
+v0.1-v0.5 阶段，安全邮箱路由（security@firefly-lm.com）尚未完成域名配置。
 在此之前，请优先使用 GitHub Security Advisories 私有披露。
