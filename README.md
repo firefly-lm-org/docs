@@ -5,6 +5,12 @@
 > 官网：https://firefly-lm.com
 > GitHub：https://github.com/firefly-lm-org
 
+---
+
+**如果萤火虫帮你省了微调电费，可以在 [爱发电](https://afdian.com/a/firefly-lm) 请维护者喝杯节点咖啡。**
+
+---
+
 ## 项目仓库
 
 | 仓库 | 说明 |
