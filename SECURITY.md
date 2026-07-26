@@ -1,17 +1,33 @@
-# 安全漏洞报告
+# 安全策略
 
-## 紧急报告
+## 报告安全漏洞
 
-发现安全漏洞？请**勿**在公开 GitHub Issue 中披露。
+萤火虫大模型重视安全问题。如果你发现了安全漏洞，请**不要**通过 GitHub Issues 公开披露。
 
-**当前阶段（v0.1 - v0.5）**：  
-请通过以下渠道报告，我们会在 **48 小时内确认**：
+请通过以下方式私下报告：
 
-- [GitHub Security Advisories](https://github.com/firefly-lm-org/scheduler/security/advisories/new) （首选，私有披露）
-- 或邮件：security@firefly-lm.com（域名部署后生效）
+- **邮箱**：admin@firefly-lm.com
+- **PGP 公钥**：[待补充]
 
-**正式阶段（v1.0+）**：  
-security@firefly-lm.com（需配合 DNS MX 记录确保可收信）
+我们承诺：
+- 48 小时内确认收到报告
+- 评估漏洞严重性并在 7 天内给出修复计划
+- 修复完成后发布安全公告并致谢报告者
+
+## 安全公告
+
+安全公告将在 GitHub Security Advisories 页面发布：
+
+https://github.com/firefly-lm-org/scheduler/security/advisories
+
+## 范围
+
+本安全策略涵盖以下仓库：
+
+- firefly-lm-org/scheduler
+- firefly-lm-org/firefly-client
+- firefly-lm-org/docs
+- firefly-lm-org/website
 
 ## 响应 SLA
 
@@ -22,7 +38,6 @@ security@firefly-lm.com（需配合 DNS MX 记录确保可收信）
 | Medium | 48 小时内 | v0.x 下个版本 |
 | Low / Info | 7 天内 | 视情况纳入 |
 
-## 已知限制
+## 致谢
 
-v0.1-v0.5 阶段，安全邮箱路由（security@firefly-lm.com）尚未完成域名配置。
-在此之前，请优先使用 GitHub Security Advisories 私有披露。
+感谢所有负责任的安全研究人员帮助萤火虫变得更安全。
