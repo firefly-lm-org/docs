@@ -2,7 +2,7 @@
 
 **版本**: v0.1  
 **生效日期**: 2026-07-24  
-**许可证类型**: [OpenRAIL-M v1](https://www.licenses.ai/blog/2023/6/25/open-rail-a-new-license-for-responsible-ai鸳鸯) + Apache 2.0 双轨
+**许可证类型**: [OpenRAIL-M v1](https://www.licenses.ai/blog/2023/6/25/open-rail-a-new-license-for-responsible-ai) + Apache 2.0 双轨
 
 ---
 
