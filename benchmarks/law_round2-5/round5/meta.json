@@ -1,0 +1,8 @@
+{
+  "task_id": "law_round5",
+  "dataset": "data/law_qa_train.jsonl",
+  "samples": 8,
+  "max_steps": 30,
+  "final_loss": 0,
+  "output_dir": "/root/.firefly/train_output/law_round5"
+}
