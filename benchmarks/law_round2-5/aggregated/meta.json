@@ -1,0 +1,11 @@
+{
+  "method": "FedAvg",
+  "weights": {
+    "round2": 0.25,
+    "round3": 0.25,
+    "round4": 0.25,
+    "round5": 0.25
+  },
+  "total_adapters": 4,
+  "output": "D:\\firefly-fed-weights\\p0_results\\law\\aggregated\\adapter_model.safetensors"
+}
